@@ -41,9 +41,12 @@ function biDi3() {
 
     // only draw after skipping first 100 iterations
     if (i > 100) {
-      let hueVal = map(i, 101, 200, 0, 359); // hue from 100° to 360°
+      //let hueVal = map(i, 101, 200, 0, 359); // hue from 100° to 360°
 
-      stroke(hueVal, 100, 100, 100);
+      //stroke(hueVal, 100, 100, 100);
+      let b = map(i, 101, 200, 1, 130);
+      stroke(b, 100, 100, 70); // constrain the hue and have a 70 alpha in accentuate patterns
+      //stroke(130, 100, 100, 100);
       let y = map(x, 0, 1, height, 0);
       let px = map(r, startx, stopx, 0, width);
       point(px, y);

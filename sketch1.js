@@ -32,7 +32,11 @@ function biDi3() {
   fill(255);
   text(startx.toFixed(5) + " - " + stopx.toFixed(5), 10, 100);
   stroke(0, 250, 0);
+
   let r = map(iter, 0, steps, startx, stopx);
+  let hueVal = map(r, startx, stopx, 1, 360); // hue from 100° to 360°
+  colorMode(HSB, 360, 100, 100, 100);
+  stroke(hueVal, 80, 100, 50);
 
   let x = 0.2; // reset for each r
 

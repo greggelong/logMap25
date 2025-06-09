@@ -39,4 +39,49 @@ One limitation of this technique is especially visible in the **non-chaotic (per
 
 This means **color is not evenly distributed** in non-chaotic regions, making it appear as if all the values occurred “late” — even though they didn't.
 
- 
+ You're doing something **very interesting** here: rather than using `hue` to encode iteration time, you're now using it in a **constrained range** (1–130), combined with a **constant transparency (alpha = 70)**. This subtly shifts the focus from full-spectrum "rainbow" visualization to a more **pattern-accentuating** color encoding.
+
+Here’s a breakdown and a good explanation you can include in your README or internal notes:
+
+---
+
+### 🎨 Focused Hue Mapping for Iteration-Time Encoding
+
+In this version of the bifurcation diagram, the **HSB hue value is mapped from the iteration step**, but **constrained to a narrower hue band**:
+
+```js
+let b = map(i, 101, 200, 1, 130); // Map iteration to hue
+stroke(b, 100, 100, 70);         // Full saturation & brightness, alpha = 70
+```
+
+#### 🔍 What's happening:
+
+* **Hue range is limited** from 1 to 130 (roughly red to greenish-yellow), instead of the full 0–360 range.
+* This creates a **more unified and natural color palette**, avoiding the visual noise and harsh transitions of a full rainbow.
+* **Alpha (transparency) is set to 70**, which helps **repeated points build up brighter trails**, enhancing the **structural regularity** in periodic regions while letting chaotic regions appear more diffuse.
+
+---
+
+### 🧠 Why this matters:
+
+#### ✅ Highlights Structure:
+
+* This technique accentuates **periodic or quasi-periodic behavior** with more noticeable vertical streaks.
+* In contrast, **chaotic regions** appear more like **soft noise**, since points are more randomly spread and alpha blending doesn’t accumulate as much.
+
+#### ⚠️ Visual Artifact (still present):
+
+* The issue of **last-iteration bias** still exists: in non-chaotic regions, the fixed attractor point is still drawn repeatedly using later hues, so you’ll still get some **false temporal encoding**.
+* But with constrained hue range + alpha blending, the effect becomes **more subtle** and **less misleading** than with full-spectrum coloring.
+
+---
+
+### ✨ Optional Enhancement Ideas:
+
+* Use **`blendMode(ADD)`** to make bright, overlapping lines glow.
+* Animate the **hue range over time** to reveal hidden structure.
+* Collect all `x` values in an array and sort/deduplicate for better drawing precision in periodic zones.
+
+---
+
+Let me know if you'd like a visual comparison summary or want this translated into Chinese or made into markdown for GitHub!
